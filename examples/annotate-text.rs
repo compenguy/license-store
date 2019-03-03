@@ -1,7 +1,8 @@
+// Copyright 2019 Will Page <compenguy@gmail.com>
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-use askalono::*;
+use license_store::*;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::{stdin, Read};

@@ -1,7 +1,9 @@
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
 use std::{cmp::Ordering, fmt};
+use rayon::prelude::*;
 
 use crate::{license::LicenseType, license::TextData, store::base::Store};
 
@@ -101,36 +103,18 @@ impl Store {
         let mut res: Vec<PartialMatch<'_>>;
 
         // parallel analysis
-        #[cfg(not(target_arch = "wasm32"))]
-        {
-            use rayon::prelude::*;
-            res = self
-                .licenses
-                .par_iter()
-                .fold(Vec::new, analyze_fold_closure!(text))
-                .reduce(
-                    Vec::new,
-                    |mut a: Vec<PartialMatch<'_>>, b: Vec<PartialMatch<'_>>| {
-                        a.extend(b);
-                        a
-                    },
-                );
-            res.par_sort_unstable_by(|a, b| b.partial_cmp(a).unwrap());
-        }
-
-        // single-threaded analysis
-        #[cfg(target_arch = "wasm32")]
-        {
-            res = self
-                .licenses
-                .iter()
-                // len of licenses isn't strictly correct, but it'll do
-                .fold(
-                    Vec::with_capacity(self.licenses.len()),
-                    analyze_fold_closure!(text),
-                );
-            res.sort_unstable_by(|a, b| b.partial_cmp(a).unwrap());
-        }
+        res = self
+            .licenses
+            .par_iter()
+            .fold(Vec::new, analyze_fold_closure!(text))
+            .reduce(
+                Vec::new,
+                |mut a: Vec<PartialMatch<'_>>, b: Vec<PartialMatch<'_>>| {
+                    a.extend(b);
+                    a
+                },
+            );
+        res.par_sort_unstable_by(|a, b| b.partial_cmp(a).unwrap());
 
         let m = &res[0];
         Match {

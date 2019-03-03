@@ -1,17 +1,21 @@
 [package]
-name = "askalono"
-version = "0.3.0"
-edition = "2018"
+name = "license-store"
 description = "a library to detect the contents of license files"
+version = "0.1.0"
+edition = "2018"
 license = "Apache-2.0"
-repository = "https://github.com/amzn/askalono"
-authors = ["Jacob Peddicord <peddicor@amazon.com>"]
+repository = "https://github.com/compenguy/license-store.git"
+# Removed Jacob Peddicord <peddicor@amazon.com> as an author
+# This is not intended to be a malicious act of denying credit, but rather intended
+# to prevent him from being contacted with requests/issues/concerns/etc relating to
+# this fork.
+# Jacob, if you want to be credited here, I'm more than happy to add you back.
+authors = ["Will Page <peddicor@amazon.com>"]
 readme = "README.md"
-exclude = [
-    "/.github/**/*",
-    "/datasets/**/*",
-    "/scripts/**/*",
-]
+
+[features]
+default = ["spdx"]
+spdx = ["serde_json", "spdx-dataset"]
 
 [dependencies]
 failure = "0.1.1"
@@ -23,20 +27,13 @@ rmp-serde = "0.13.7"
 serde = "1.0.33"
 serde_derive = "1.0.33"
 unicode-normalization = "0.1.5"
+rayon = "1.0.1"
 
 # spdx deps
 serde_json = { version = "1.0.11", optional = true }
 
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-rayon = "1.0.1"
-
 [dev-dependencies]
 env_logger = "0.5.5"
 
-[lib]
-name = "askalono"
-path = "src/lib.rs"
-
-[features]
-default = ["spdx"]
-spdx = ["serde_json"]
+[build-dependencies]
+spdx-dataset = { git = 'https://github.com/compenguy/spdx-dataset', optional = true }
