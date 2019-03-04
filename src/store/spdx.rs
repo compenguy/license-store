@@ -29,7 +29,7 @@ impl Store {
     pub fn load_spdx(&mut self, include_texts: bool) -> Result<(), Error> {
         use serde_json::{from_str, Value};
 
-        for (_, data) in SPDX_LICENSES.iter() {
+        for data in SPDX_LICENSES.values() {
             let val: Value = from_str(&data)?;
 
             let name = val["licenseId"]
