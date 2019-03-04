@@ -1,3 +1,4 @@
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -72,7 +73,7 @@ pub struct ContainedResult<'a> {
 ///
 /// ```rust,should_panic
 /// # use std::error::Error;
-/// use askalono::{ScanStrategy, Store};
+/// use license_store::{ScanStrategy, Store};
 ///
 /// # fn main() -> Result<(), Box<Error>> {
 /// let store = Store::new();

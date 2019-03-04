@@ -21,7 +21,7 @@ pub enum LicenseType {
     Header,
     /// An alternate form of a license. This is intended to be used for
     /// alternate _formats_ of a license, not for variants where the text has
-    /// different meaning. Not currently used in askalono's SPDX dataset.
+    /// different meaning. Not currently used in license-store's SPDX dataset.
     Alternate,
 }
 
@@ -50,7 +50,7 @@ impl fmt::Display for LicenseType {
 /// Basic scoring of two texts:
 ///
 /// ```
-/// use askalono::TextData;
+/// use license_store::TextData;
 ///
 /// let license = TextData::from("My First License");
 /// let sample = TextData::from("copyright 20xx me irl\n\n //  my   first license");
@@ -65,7 +65,7 @@ impl fmt::Display for LicenseType {
 ///
 /// ```
 /// # use std::error::Error;
-/// # use askalono::TextData;
+/// # use license_store::TextData;
 /// # fn main() -> Result<(), Box<Error>> {
 /// # let license = TextData::from("My First License");
 /// let sample = TextData::from("copyright 20xx me irl\n// My First License\nfn hello() {\n ...");
@@ -93,8 +93,8 @@ impl TextData {
     /// structure for future diagnostics. This is necessary for optimizing a
     /// match and for diffing against other texts. If you don't want this extra
     /// data, you can call `without_text` throw it out. Generally, as a user of
-    /// this library you want to keep the text data, but askalono will throw it
-    /// away in its own `Store` as it's not needed.
+    /// this library you want to keep the text data, but license-store will throw
+    /// it away in its own `Store` as it's not needed.
     pub fn new(text: &str) -> TextData {
         let normalized = apply_normalizers(text);
         let normalized_joined = normalized.join("\n");
@@ -330,7 +330,7 @@ mod tests {
         println!("{:?}", optimized.lines_view);
         println!("{:?}", optimized.lines_normalized.clone());
         // end bounds at 7 and 8 have the same score, since they're empty lines (not
-        // counted). askalono is not smart enough to trim this as close as it
+        // counted). license-store is not smart enough to trim this as close as it
         // can.
         assert!(
             (4, 7) == optimized.lines_view || (4, 8) == optimized.lines_view,

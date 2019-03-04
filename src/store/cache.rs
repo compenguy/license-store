@@ -1,3 +1,4 @@
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -11,7 +12,7 @@ use serde::Serialize;
 
 use crate::store::base::Store;
 
-const CACHE_VERSION: &[u8] = b"askalono-03";
+const CACHE_VERSION: &[u8] = b"license-store-01";
 
 impl Store {
     /// Create a store from a cache file.
@@ -20,7 +21,7 @@ impl Store {
     /// one from text data is rather slow. This method can typically load
     /// the full SPDX set from disk in 200-300 ms. The cache will be
     /// sanity-checked to ensure it was generated with a similar version of
-    /// askalono.
+    /// license-store.
     pub fn from_cache<R>(readable: R) -> Result<Store, Error>
     where
         R: Read + Sized,

@@ -1,3 +1,4 @@
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -28,10 +29,10 @@ pub(crate) struct LicenseEntry {
 /// ```rust,should_panic
 /// # use std::fs::File;
 /// # use std::error::Error;
-/// use askalono::{Store, TextData};
+/// use license_store::{Store, TextData};
 ///
 /// # fn main() -> Result<(), Box<Error>> {
-/// let store = Store::from_cache(File::open("askalono-cache.bin.gz")?)?;
+/// let store = Store::from_cache(File::open("license-store-cache.bin.gz")?)?;
 /// let result = store.analyze(&TextData::from("what's this"));
 /// # Ok(())
 /// # }

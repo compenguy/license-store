@@ -1,3 +1,4 @@
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -6,7 +7,7 @@ mod common;
 use std::fs::File;
 use std::io::prelude::*;
 
-use askalono::TextData;
+use license_store::TextData;
 
 #[test]
 fn store_loads() {
@@ -17,19 +18,8 @@ fn store_loads() {
 #[test]
 fn self_licenses() {
     let store = common::load_store();
-    for license in &[
-        "MIT",
-        "BSD-2-Clause",
-        "BSD-3-Clause",
-        "GPL-2.0-only",
-        "LGPL-2.0-only",
-        "MPL-2.0",
-    ] {
-        let mut f = File::open(format!("{}/{}.txt", common::SPDX_TEXT, license))
-            .expect(&format!("couldn't open license file '{}'", license));
-        let mut text = String::new();
-        f.read_to_string(&mut text).unwrap();
-        let text_data: TextData = text.into();
+    for license in spdx_dataset::spdx_text::SPDX_LICENSES.values() {
+        let text_data: TextData = license.to_owned().into();
         let matched = store.analyze(&text_data);
 
         assert_eq!(license, &matched.name);

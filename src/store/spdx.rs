@@ -19,13 +19,13 @@ impl Store {
     /// `json/details` directory and creates entries inside the store for
     /// matching.
     ///
-    /// This is intended to be used during build of askalono, so it's not
+    /// This is intended to be used during build of license-store, so it's not
     /// available unless the `spdx` feature is enabled.
     ///
     /// `include_texts`, if true, will keep normalized license text data inside
     /// the store. This yields a larger store when serialized, but has the
-    /// benefit of allowing you to diff your result against what askalono has
-    /// stored.
+    /// benefit of allowing you to diff your result against what license-store
+    /// has stored.
     pub fn load_spdx(&mut self, include_texts: bool) -> Result<(), Error> {
         use serde_json::{from_str, Value};
 

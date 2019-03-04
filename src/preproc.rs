@@ -1,5 +1,6 @@
-//  Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-//  SPDX-License-Identifier: Apache-2.0
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
+// Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// SPDX-License-Identifier: Apache-2.0
 
 use std::borrow::Cow;
 
@@ -165,8 +166,6 @@ fn remove_common_tokens(text: &str) -> String {
     let lines: Vec<&str> = text.split('\n').collect();
     let mut largest_substr = String::new();
     let mut l_iter = lines.iter();
-
-    // TODO: consider whether this can all be done in one pass https://github.com/amzn/askalono/issues/36
 
     // pass 1: iterate through the text to find the largest substring
     // from the start of the line

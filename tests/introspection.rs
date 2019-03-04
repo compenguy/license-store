@@ -1,3 +1,4 @@
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
@@ -11,14 +12,14 @@
 // express or implied. See the License for the specific language governing
 // permissions and limitations under the License.
 
-use askalono;
+use license_store;
 
 mod common;
 
 use std::fs::File;
 use std::io::prelude::*;
 
-use askalono::TextData;
+use license_store::TextData;
 
 // Ok, this test is a bit silly. But it's neat! I think.
 // This test tests that it can identify this file (this one you're reading)
@@ -35,7 +36,7 @@ fn self_apache_header() {
 
     // check that it looked apache-2.0-ish
     assert_eq!("Apache-2.0", &matched.name);
-    assert_eq!(askalono::LicenseType::Header, matched.license_type);
+    assert_eq!(license_store::LicenseType::Header, matched.license_type);
 
     // now try to find the bounds of the license header
     let (optimized, _) = text_data.optimize_bounds(&matched.data);

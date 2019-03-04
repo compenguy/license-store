@@ -1,7 +1,8 @@
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-//! askalono is a crate that is Quite Good at detecting licenses from text.
+//! license-store is a crate that is Quite Good at detecting licenses from text.
 //!
 //! To get started, have a look at the `Store` struct, or one of the examples
 //! in the `examples` directory.

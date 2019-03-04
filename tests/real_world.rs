@@ -1,3 +1,4 @@
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -9,7 +10,7 @@ use std::io::prelude::*;
 use std::path::Path;
 use std::str::FromStr;
 
-use askalono::{Store, TextData};
+use license_store::{Store, TextData};
 
 const TEST_DATA: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/tests/data/real-licenses");
 
