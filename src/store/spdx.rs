@@ -1,15 +1,10 @@
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
-use std::{
-    ffi::OsStr,
-    fs::{read_dir, File},
-    io::prelude::*,
-    path::Path,
-};
-
 use failure::{format_err, Error};
 use log::{debug, info};
+use spdx_dataset::spdx_json::SPDX_LICENSES;
 
 use crate::{
     license::TextData,
@@ -31,23 +26,10 @@ impl Store {
     /// the store. This yields a larger store when serialized, but has the
     /// benefit of allowing you to diff your result against what askalono has
     /// stored.
-    pub fn load_spdx(&mut self, dir: &Path, include_texts: bool) -> Result<(), Error> {
+    pub fn load_spdx(&mut self, include_texts: bool) -> Result<(), Error> {
         use serde_json::{from_str, Value};
 
-        // locate all json files in the directory
-        let mut paths: Vec<_> = read_dir(dir)?
-            .filter_map(|e| e.ok())
-            .map(|e| e.path())
-            .filter(|p| p.is_file() && p.extension().unwrap_or_else(|| OsStr::new("")) == "json")
-            .collect();
-
-        // sort without extensions; otherwise dashes and dots muck it up
-        paths.sort_by(|a, b| a.file_stem().unwrap().cmp(b.file_stem().unwrap()));
-
-        for path in paths {
-            let mut f = File::open(path)?;
-            let mut data = String::new();
-            f.read_to_string(&mut data)?;
+        for (_, data) in SPDX_LICENSES.iter() {
             let val: Value = from_str(&data)?;
 
             let name = val["licenseId"]

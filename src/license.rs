@@ -1,3 +1,4 @@
+// Copyright 2019 Will Page <compenguy@gmail.com> and contributors
 // Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -207,6 +208,7 @@ impl TextData {
         self.match_data.dice(&other.match_data)
     }
 
+    #[allow(dead_code)]
     pub(crate) fn eq_data(&self, other: &Self) -> bool {
         self.match_data.eq(&other.match_data)
     }

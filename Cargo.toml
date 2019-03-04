@@ -14,7 +14,7 @@ authors = ["Will Page <peddicor@amazon.com>"]
 readme = "README.md"
 
 [features]
-default = ["spdx"]
+default = []
 spdx = ["serde_json", "spdx-dataset"]
 
 [dependencies]
@@ -31,9 +31,8 @@ rayon = "1.0.1"
 
 # spdx deps
 serde_json = { version = "1.0.11", optional = true }
+spdx-dataset = { git = 'https://github.com/compenguy/spdx-dataset', optional = true }
 
 [dev-dependencies]
 env_logger = "0.5.5"
 
-[build-dependencies]
-spdx-dataset = { git = 'https://github.com/compenguy/spdx-dataset', optional = true }
